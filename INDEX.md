@@ -74,7 +74,18 @@ Located in `D:\Pliny\` and `D:\Reference\`
 #### Examples (NEW)
 - [Edge Case Examples](./docs/examples/edge_case_examples.md) - **NEW** - Non-obvious classification scenarios
 
-#### Personas
+#### 🎭 Persona Library (NEW)
+Specialized AI personas that integrate PlinyHub frameworks:
+
+| Persona | Specialty | Framework | Use Case |
+|---------|-----------|-----------|----------|
+| **[Atlas](./personas/atlas.md)** | Deep Research | HARVEST-R | Comprehensive research with sources |
+| **[Sage](./personas/sage.md)** | Architecture | R-I-S-E + ToT | System design with trade-off analysis |
+| **[Scribe](./personas/scribe.md)** | Documentation | HARVEST + Meta | Technical writing for any audience |
+
+See [Persona Library README](./personas/README.md) for usage guide.
+
+#### Domain Personas
 - **CmL (Engineer)** - Senior Murata MHC engineer (see [Persona Clarification](./core/persona_clarification.md))
 - **Analyst** - System analysis persona
 - **Documenter** - Documentation specialist
