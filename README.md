@@ -147,6 +147,29 @@ VERIFY: [What to check]
 
 ---
 
+## 🎭 Persona Library
+
+Specialized AI personas for specific tasks:
+
+| Persona | Specialty | Methodology | Use Case |
+|---------|-----------|-------------|----------|
+| **[Atlas](personas/atlas.md)** | Deep Research | HARVEST-R | Comprehensive research with sources |
+| **[Sage](personas/sage.md)** | Architecture | R-I-S-E + ToT | System design with trade-off analysis |
+| **[Scribe](personas/scribe.md)** | Documentation | HARVEST + Meta | Technical writing for any audience |
+
+Each persona is a **self-contained prompt** you can paste into any AI. They integrate PlinyHub's frameworks, Confidence Protocol, and Meta-Prompting into focused specialists.
+
+**Quick Start:**
+
+1. Open any AI chat (ChatGPT, Claude, Gemini)
+2. Copy the entire persona file content
+3. Paste as your first message
+4. Start working with your specialist!
+
+See [personas/](personas/) for the full library.
+
+---
+
 ## 🧠 The Core Loop
 
 ```
