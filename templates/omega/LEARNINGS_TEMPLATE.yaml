@@ -1,0 +1,134 @@
+# PlinyHub Learning Persistence Template
+# 
+# PURPOSE: Manually persist learnings across sessions
+# USAGE: Copy this template, fill in after each significant task
+# LOCATION: Store in project root or dedicated learnings folder
+#
+# To use in future sessions, reference this file:
+#   "Load learnings from LEARNINGS.yaml before starting"
+#
+# VERSION: 1.0
+# CREATED: December 22, 2025
+
+---
+# Session Metadata
+session_id: "YYYY-MM-DD-brief-description"
+timestamp: "YYYY-MM-DDTHH:MM:SSZ"
+project: "project-name"
+
+# Problem Context
+problem:
+  category: "CREATION | TRANSFORMATION | UNDERSTANDING | REPAIR | OPTIMIZATION"
+  domain: "murata_mhc | web_development | python_data | general_reasoning"
+  framework_used: "R-I-S-E | C-A-R-E | HARVEST"
+  complexity: "trivial | simple | moderate | complex | critical"
+  statement: "Brief description of the problem"
+
+# Solution Summary
+solution:
+  approach: "High-level description of the approach taken"
+  key_decisions:
+    - decision: "What was decided"
+      rationale: "Why this decision was made"
+  final_outcome: "What was delivered"
+
+# Patterns Learned
+successful_patterns:
+  - pattern_name: "Descriptive name"
+    description: "What the pattern is"
+    when_to_use: "Conditions where this pattern applies"
+    example: "Brief example of application"
+
+failed_attempts:
+  - attempt: "What was tried"
+    why_failed: "Why it didn't work"
+    lesson: "What to do differently next time"
+
+new_discoveries:
+  - discovery: "Something new learned"
+    applies_to: "Where this knowledge is useful"
+    
+# Anti-Patterns (What NOT to do)
+anti_patterns:
+  - pattern: "What to avoid"
+    why_bad: "Why this is problematic"
+    alternative: "What to do instead"
+
+# Quality Metrics
+quality:
+  completeness: 0.95  # 0.0 to 1.0
+  accuracy: 0.98
+  consistency: 0.95
+  iterations_needed: 1
+
+# Tags for Future Retrieval
+tags:
+  - "relevant-tag-1"
+  - "relevant-tag-2"
+  - "equipment-type"
+  - "error-type"
+
+# Notes for Future Self
+notes: |
+  Any additional context that might be helpful
+  when encountering similar problems in the future.
+
+---
+# EXAMPLE FILLED-IN LEARNING RECORD
+# (Delete this section when using the template)
+
+# example_learning:
+#   session_id: "2025-12-22-sr01-gpbad-fix"
+#   timestamp: "2025-12-22T15:30:00Z"
+#   project: "Aurora AS/RS"
+#   
+#   problem:
+#     category: "REPAIR"
+#     domain: "murata_mhc"
+#     framework_used: "C-A-R-E"
+#     complexity: "moderate"
+#     statement: "SR01 stacker crane returning GP.BAD on store commands"
+#   
+#   solution:
+#     approach: "Analyzed cs_log for error context, identified DCB timeout"
+#     key_decisions:
+#       - decision: "Increase DCB timeout from 30s to 45s"
+#         rationale: "PLC response time slower during peak load"
+#     final_outcome: "Store commands now succeed consistently"
+#   
+#   successful_patterns:
+#     - pattern_name: "cs_log grep for error context"
+#       description: "Search cs_log for GP.BAD near operation timestamp"
+#       when_to_use: "Any MHC equipment GP.BAD error"
+#       example: "grep 'SR01' cs_log | grep 'GP.BAD' | grep 'store'"
+#   
+#   failed_attempts:
+#     - attempt: "Checked database records first"
+#       why_failed: "Wasted time on irrelevant data"
+#       lesson: "For communication errors, check cs_log FIRST"
+#   
+#   new_discoveries:
+#     - discovery: "DCB timeouts often caused by PLC load"
+#       applies_to: "All crane communication issues"
+#   
+#   anti_patterns:
+#     - pattern: "Assuming database issue for GP.BAD"
+#       why_bad: "GP.BAD often indicates communication, not data"
+#       alternative: "Check cs_log for timeout/communication messages first"
+#   
+#   quality:
+#     completeness: 0.95
+#     accuracy: 0.98
+#     consistency: 0.95
+#     iterations_needed: 1
+#   
+#   tags:
+#     - "stacker-crane"
+#     - "GP.BAD"
+#     - "DCB-timeout"
+#     - "SR01"
+#   
+#   notes: |
+#     If timeout keeps increasing, investigate PLC program load.
+#     Consider adding response time monitoring to catch this earlier.
+
