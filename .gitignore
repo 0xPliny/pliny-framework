@@ -1,0 +1,27 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Personal/Session files
+.claude/
+*.session
+LEARNINGS.yaml
+LEARNINGS_SYSTEM.md
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Working documents (exclude from public repo)
+*_NOTES.md
+*_DRAFT.md
+D_DRIVE_EXPLORATION.md
