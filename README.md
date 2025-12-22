@@ -66,10 +66,19 @@ PlinyHub/
 │   ├── problem_classifier.md    # 5 categories + confidence scoring
 │   ├── universal_rise.md        # Research → Identify → Synthesize → Execute
 │   ├── universal_care.md        # Context → Analyze → Respond → Evaluate
+│   ├── universal_harvest.md     # Documentation & understanding
 │   ├── verification_framework.md # 5-layer correctness stack
 │   ├── knowledge_transfer.md    # Cross-domain learning
 │   ├── omega_loop.md            # Self-improving master loop
-│   └── meta_framework.md        # 3-layer architecture with GENESIS
+│   ├── meta_framework.md        # 3-layer architecture with GENESIS
+│   ├── tree_of_thoughts.md      # **NEW** Multi-path exploration
+│   └── react_integration.md     # **NEW** Reasoning + Acting
+│
+├── core/                        # Core enhancement layers
+│   ├── meta_prompting.md        # **NEW** Self-critique layer
+│   ├── confidence_protocol.md   # **NEW** Explicit confidence scoring
+│   ├── persona_clarification.md # Persona management
+│   └── multi_domain_orchestration.md # Domain coordination
 │
 ├── modules/                     # WHAT standards to follow
 │   ├── domain_module_template.md # Template for new modules
@@ -82,10 +91,58 @@ PlinyHub/
 ├── cli/                         # Automation tools
 │   └── CLI_SPECIFICATION.md     # Complete command reference
 │
+├── docs/                        # Documentation
+│   └── MHC_INTEGRATION_GUIDE.md # MHC-specific integration
+│
 └── templates/                   # Reusable templates
     ├── rise/
     ├── care/
     └── harvest/
+```
+
+---
+
+## ⚡ Advanced Enhancements (NEW)
+
+### Tree of Thoughts (ToT)
+
+For complex problems with multiple valid approaches:
+
+```
+BRANCH → EVALUATE → PRUNE → EXPLORE → CONVERGE
+```
+
+Generate 3+ solution paths, score each, select optimal with fallback.
+
+### ReAct Integration
+
+When you need information you don't have:
+
+```
+THOUGHT → ACTION → OBSERVATION → (repeat) → ANSWER
+```
+
+Actions: SEARCH, EXECUTE, VERIFY, READ, QUERY, TEST
+
+### Meta-Prompting
+
+Self-critique layer before finalizing any output:
+
+```
+GENERATE → SELF-CRITIQUE → IMPROVE → VERIFY → FINALIZE
+```
+
+Catches errors that slip through standard frameworks.
+
+### Confidence Protocol
+
+Every response must include explicit confidence:
+
+```
+CONFIDENCE: [1-10]
+REASONING: [Why this score]
+CAVEATS: [What could be wrong]
+VERIFY: [What to check]
 ```
 
 ---
