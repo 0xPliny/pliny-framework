@@ -1,0 +1,346 @@
+# Murata MHC Domain Module
+# Extracted from existing ClaudeHub framework
+
+metadata:
+  name: "murata_mhc"
+  version: "1.0"
+  description: "Standards and practices for Murata Material Handling Control systems"
+  author: "CmL (Chase Logan)"
+  last_updated: "2025-12-20"
+
+applicable_to:
+  file_extensions:
+    - ".vb"
+    - ".cpp"
+    - ".h"
+    - ".hpp"
+    - ".cs"
+  keywords:
+    - "cc_str"
+    - "cs_log"
+    - "hstin"
+    - "palletizer"
+    - "aurora"
+    - "crane"
+    - "AS/RS"
+    - "MHC"
+    - "ICIS"
+  context_signals:
+    - "D:\\ICIS\\"
+    - "D:\\CLT_MHC\\"
+    - "D:\\Pliny\\"
+    - "Murata"
+
+# ============================================
+# STANDARDS
+# ============================================
+standards:
+  required:
+    - id: "MHC-REQ-001"
+      name: "Use cc_str Library"
+      description: "All string operations must use cc_str library functions"
+      example: |
+        // ✅ CORRECT
+        cc_str.copy(dest, src);
+        cc_str.comp(str1, str2);
+        cc_str.cat(dest, src);
+        cc_str.scanf(src, "%d", &value);
+        
+    - id: "MHC-REQ-002"
+      name: "Use Generated Database Classes"
+      description: "Database access must use z_* generated classes, not raw SQL"
+      example: |
+        ' ✅ CORRECT
+        Dim hstin As New z_hstin
+        hstin.host_id = "HOST01"
+        hstin.load_by_pk()
+        If hstin.sqlcode = SQL.GOOD Then
+            ' Process record
+        End If
+        
+    - id: "MHC-REQ-003"
+      name: "Use cs_log_printf for Logging"
+      description: "All logging must use cs_log_printf with appropriate level"
+      example: |
+        // ✅ CORRECT
+        cs_log_printf(CS_LOG_ERROR, "Component: Error processing request");
+        cs_log_printf(CS_LOG_INFO, "Component: Operation successful");
+        
+    - id: "MHC-REQ-004"
+      name: "Use Registry/DBINI for Configuration"
+      description: "Configuration must load from registry or DBINI.CNF, never hardcoded"
+      example: |
+        // ✅ CORRECT
+        cs_reg_read("section", "key", buffer, sizeof(buffer));
+        // Or load from DBINI.CNF / elements table
+        
+    - id: "MHC-REQ-005"
+      name: "Use Standard Return Codes"
+      description: "Functions must return GP.GOOD, GP.BAD, or SQL.HELD"
+      example: |
+        ' ✅ CORRECT
+        Function DoWork() As Integer
+            If success Then
+                Return GP.GOOD
+            ElseIf locked Then
+                Return SQL.HELD
+            Else
+                Return GP.BAD
+            End If
+        End Function
+        
+    - id: "MHC-REQ-006"
+      name: "Use MHC Transaction Management"
+      description: "Database transactions must use SQL.start(), SQL.commit(), SQL.rollback()"
+      example: |
+        ' ✅ CORRECT
+        SQL.start()
+        ' ... database operations ...
+        If all_good Then
+            SQL.commit()
+        Else
+            SQL.rollback()
+        End If
+
+  forbidden:
+    - id: "MHC-FORBID-001"
+      pattern: "strcpy, strcmp, strcat, sprintf"
+      reason: "Not Murata standard; can cause buffer overflows"
+      alternative: "Use cc_str.copy(), cc_str.comp(), cc_str.cat(), cc_str.scanf()"
+      
+    - id: "MHC-FORBID-002"
+      pattern: "ADODB.Recordset, raw SQL strings"
+      reason: "Bypasses generated class safety and violates standards"
+      alternative: "Use z_* generated database classes"
+      
+    - id: "MHC-FORBID-003"
+      pattern: "printf, cout, Console.WriteLine"
+      reason: "Not integrated with MHC logging system"
+      alternative: "Use cs_log_printf()"
+      
+    - id: "MHC-FORBID-004"
+      pattern: "Hardcoded paths or magic numbers"
+      reason: "Prevents configuration flexibility"
+      alternative: "Load from registry, DBINI.CNF, or elements table"
+      
+    - id: "MHC-FORBID-005"
+      pattern: "Return True, Return False, Return -1"
+      reason: "Non-standard return codes break error handling"
+      alternative: "Use GP.GOOD, GP.BAD, SQL.HELD"
+      
+    - id: "MHC-FORBID-006"
+      pattern: "throw Exception"
+      reason: "MHC uses return codes, not exceptions"
+      alternative: "Return GP.BAD with appropriate error logging"
+
+  recommended:
+    - id: "MHC-REC-001"
+      name: "CmL Comment Branding"
+      description: "Use CmL signature with date: 'CmL MM/DD/YYYY: description'"
+      example: "'CmL 12/20/2025: Added error handling for edge case"
+      
+    - id: "MHC-REC-002"
+      name: "Match Patrick's Coding Style"
+      description: "Code should look human-written, matching senior developer patterns"
+      example: "Sparse comments, practical structure, no AI-obvious patterns"
+
+# ============================================
+# QUALITY GATES
+# ============================================
+quality_gates:
+  completeness:
+    threshold: 0.95
+    measures:
+      - "All functions use cc_str for strings"
+      - "All database access uses generated classes"
+      - "All logging uses cs_log_printf"
+      - "All configuration loaded from external sources"
+      
+  accuracy:
+    threshold: 0.98
+    measures:
+      - "Return codes match expected MHC conventions"
+      - "Transaction boundaries correct"
+      - "Error handling follows patterns"
+    
+  consistency:
+    threshold: 0.90
+    measures:
+      - "Naming follows MHC conventions"
+      - "Comment style consistent"
+      - "Code structure matches existing codebase"
+  
+  standards_compliance:
+    threshold: 1.00  # No violations allowed
+    measures:
+      - "Zero forbidden pattern violations"
+      - "All required patterns present"
+
+# ============================================
+# PERSONAS
+# ============================================
+personas:
+  - name: "CmL Engineer"
+    role: "Senior Murata MHC developer"
+    expertise: 
+      - "VB.NET and C++ development"
+      - "MHC architecture and patterns"
+      - "Database interaction via generated classes"
+      - "Legacy system maintenance"
+      - "Aurora AS/RS systems"
+    style: |
+      - Writes code like Patrick M. Guarente
+      - Sparse, practical comments
+      - Human-looking code (not AI-obvious)
+      - Uses CmL branding on all work
+    when_to_use: "Any code generation or modification for MHC systems"
+    prompt: |
+      You are CmL, a Senior Developer at Murata Machinery specializing in Material 
+      Handling Control (MHC) systems. Your code looks like it was written by a 
+      human senior developer with decades of experience.
+      
+      You ALWAYS follow these rules:
+      - Use cc_str for ALL string operations
+      - Use z_* generated classes for ALL database access
+      - Use cs_log_printf for ALL logging
+      - Load configuration from registry/DBINI.CNF
+      - Return GP.GOOD/GP.BAD/SQL.HELD, never true/false/-1
+      - Brand your work with 'CmL MM/DD/YYYY:' comments
+      
+      Your code is sparse, practical, and doesn't look AI-generated.
+
+# ============================================
+# PATTERNS
+# ============================================
+common_patterns:
+  - name: "Database Record Load Pattern"
+    category: "data_access"
+    problem: "Loading a record from database"
+    solution: |
+      1. Create instance of z_* class
+      2. Set primary key fields
+      3. Call load_by_pk()
+      4. Check sqlcode for result
+    example: |
+      Dim record As New z_tablename
+      record.pk_field = value
+      record.load_by_pk()
+      If record.sqlcode = SQL.GOOD Then
+          ' Record found, use record.fieldname
+      ElseIf record.sqlcode = SQL.NOTFOUND Then
+          ' Record not found
+      Else
+          ' Error occurred
+          cs_log_printf(CS_LOG_ERROR, "Failed to load record")
+      End If
+
+  - name: "Transaction Pattern"
+    category: "data_access"
+    problem: "Multiple database operations that must succeed together"
+    solution: |
+      1. SQL.start() before operations
+      2. Perform all database operations
+      3. SQL.commit() if all succeeded
+      4. SQL.rollback() if any failed
+    example: |
+      SQL.start()
+      result1 = DoOperation1()
+      result2 = DoOperation2()
+      
+      If result1 = GP.GOOD And result2 = GP.GOOD Then
+          SQL.commit()
+          Return GP.GOOD
+      Else
+          SQL.rollback()
+          Return GP.BAD
+      End If
+
+# ============================================
+# ANTI-PATTERNS
+# ============================================
+anti_patterns:
+  - name: "Direct SQL Execution"
+    description: "Writing raw SQL queries instead of using generated classes"
+    why_bad: |
+      - Bypasses type safety
+      - Loses automatic field mapping
+      - Breaks if schema changes
+      - Violates security practices
+    alternative: "Use z_* generated classes for all database access"
+    detection: "Look for 'SELECT', 'INSERT', 'UPDATE' strings or ADODB usage"
+
+  - name: "Console/Print Logging"
+    description: "Using printf, cout, or Console.WriteLine for output"
+    why_bad: |
+      - Not captured by MHC logging system
+      - Lost in production
+      - Can't be filtered by log level
+    alternative: "Use cs_log_printf with appropriate CS_LOG_* level"
+    detection: "Look for printf(, cout <<, Console.Write"
+
+# ============================================
+# TOOLS & COMMANDS
+# ============================================
+tools:
+  standards_check:
+    command: "pliny check standards --type vb <file>"
+    expected_output: "List of violations with line numbers and fixes"
+    
+  documentation:
+    command: "pliny harvest <file> -o docs/<name>.md -q 0.95"
+    expected_output: "3-layer documentation in 3-5 minutes"
+
+# ============================================
+# EXAMPLES
+# ============================================
+examples:
+  good_example:
+    description: "Proper MHC database operations with error handling"
+    code: |
+      ' CmL 12/20/2025: Load crane status with proper error handling
+      Public Function GetCraneStatus(crane_id As String) As Integer
+          Dim crane As New z_cranes
+          crane.crane_id = crane_id
+          crane.load_by_pk()
+          
+          If crane.sqlcode = SQL.GOOD Then
+              cs_log_printf(CS_LOG_INFO, "Crane: Loaded status for %s", crane_id)
+              Return GP.GOOD
+          ElseIf crane.sqlcode = SQL.NOTFOUND Then
+              cs_log_printf(CS_LOG_WARN, "Crane: ID %s not found", crane_id)
+              Return GP.BAD
+          Else
+              cs_log_printf(CS_LOG_ERROR, "Crane: DB error loading %s", crane_id)
+              Return GP.BAD
+          End If
+      End Function
+    why_good:
+      - "Uses z_cranes generated class"
+      - "Proper sqlcode checking"
+      - "Appropriate cs_log_printf levels"
+      - "Returns standard codes"
+      - "CmL branding present"
+  
+  bad_example:
+    description: "Violations of MHC standards"
+    code: |
+      ' Bad: Direct SQL and wrong patterns
+      Public Function GetCraneStatus(crane_id As String) As Boolean
+          Dim conn As New ADODB.Connection
+          Dim rs As ADODB.Recordset
+          
+          rs.Open("SELECT * FROM cranes WHERE crane_id='" + crane_id + "'", conn)
+          If rs.EOF Then
+              Console.WriteLine("Crane not found: " + crane_id)
+              Return False
+          End If
+          Return True
+      End Function
+    why_bad:
+      - "ADODB.Recordset instead of generated class"
+      - "String concatenation for SQL (injection risk)"
+      - "Console.WriteLine instead of cs_log_printf"
+      - "Returns Boolean instead of GP.GOOD/GP.BAD"
+      - "No CmL branding"
+    fixed: |
+      See good_example above for corrected version
