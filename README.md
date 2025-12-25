@@ -84,7 +84,20 @@ PlinyHub/
 │   ├── meta_prompting.md        # **NEW** Self-critique layer
 │   ├── confidence_protocol.md   # **NEW** Explicit confidence scoring
 │   ├── persona_clarification.md # Persona management
-│   └── multi_domain_orchestration.md # Domain coordination
+│   ├── multi_domain_orchestration.md # Domain coordination
+│   └── orchestration.md         # **NEW** Agent orchestration
+│
+├── execution/                   # **NEW** Execution engine
+│   ├── session_manager.md      # Persistent state management
+│   ├── checkpoint_manager.md   # Git-based checkpointing
+│   ├── audit_system.md         # Crash-safe logging
+│   ├── parallel_agents.md      # Multi-agent orchestration
+│   └── error_handling.md       # Retry logic & error categories
+│
+├── integrations/                # **NEW** External integrations
+│   ├── mcp_integration.md      # Model Context Protocol
+│   ├── browser_automation.md   # Playwright patterns
+│   └── tool_validation.md     # Tool availability checking
 │
 ├── modules/                     # WHAT standards to follow
 │   ├── domain_module_template.md # Template for new modules
@@ -92,19 +105,118 @@ PlinyHub/
 │   ├── web_development.yaml     # React, TypeScript, FastAPI
 │   ├── python_data.yaml         # Python, pandas, ML
 │   ├── general_reasoning.yaml   # Logic, decisions
-│   └── research_analysis.yaml   # Research methodology
+│   ├── research_analysis.yaml   # Research methodology
+│   └── security_testing.yaml    # **NEW** Security testing standards
+│
+├── personas/                    # AI personalities
+│   ├── atlas.md                 # Deep Research
+│   ├── sage.md                  # Architecture
+│   ├── scribe.md                # Documentation
+│   └── sentinel.md              # **NEW** Security Testing
+│
+├── configs/                     # **NEW** Configuration schemas
+│   ├── config-schema.json       # JSON Schema validation
+│   └── example-config.yaml      # Example configuration
 │
 ├── cli/                         # Automation tools
 │   └── CLI_SPECIFICATION.md     # Complete command reference
 │
 ├── docs/                        # Documentation
-│   └── MHC_INTEGRATION_GUIDE.md # MHC-specific integration
+│   ├── MHC_INTEGRATION_GUIDE.md # MHC-specific integration
+│   ├── PATTERN_LIBRARY.md       # **NEW** Comprehensive pattern catalog
+│   ├── PATTERN_EXTRACTION_GUIDE.md # **NEW** How to extract patterns
+│   ├── PATTERN_APPLICATION_GUIDE.md # **NEW** How to apply patterns
+│   ├── SUCCESS_METRICS.md       # **NEW** Examples of high-quality docs
+│   ├── EXECUTION_ENGINE_GUIDE.md # **NEW** How to use execution engine
+│   └── SECURITY_TESTING_GUIDE.md # **NEW** Security testing guide
 │
 └── templates/                   # Reusable templates
     ├── rise/
     ├── care/
-    └── harvest/
+    ├── harvest/
+    │   ├── javascript_documentation.md # **NEW** JavaScript/Node.js template
+    │   └── multi_agent_architecture.md # **NEW** Multi-agent system template
+    └── security/                 # **NEW** Security templates
+        ├── vulnerability_report.md
+        ├── pentest_report.md
+        └── security_assessment.md
 ```
+
+---
+
+## 🚀 Execution Engine (NEW)
+
+PlinyHub now includes an execution engine inspired by Shannon AI Pentester:
+
+### Session Management
+
+Manage persistent state across task execution:
+
+```bash
+pliny session start "My Task"    # Start new session
+pliny session status             # Check current session
+pliny session list               # List all sessions
+pliny session resume <id>        # Resume incomplete session
+```
+
+### Checkpointing
+
+Enable rollback and recovery using git-based checkpointing:
+
+```bash
+pliny checkpoint create "after-research"  # Create checkpoint
+pliny checkpoint list                      # List checkpoints
+pliny rollback "after-research"            # Rollback to checkpoint
+```
+
+### Parallel Execution
+
+Execute multiple AI agents concurrently for faster completion:
+
+```bash
+pliny execute --parallel          # Run agents in parallel
+pliny execute --phase research    # Run specific phase
+```
+
+### Audit Logs
+
+All executions are logged to `audit-logs/` with:
+- Event-by-event tracking
+- Timing and cost metrics
+- Rollback history
+- Deliverable artifacts
+
+See [Execution Engine Guide](docs/EXECUTION_ENGINE_GUIDE.md) for details.
+
+---
+
+## 🔒 Security Testing Module (NEW)
+
+PlinyHub now includes security testing capabilities from Shannon:
+
+### Quick Security Assessment
+
+```bash
+pliny security assess https://example.com /path/to/repo
+```
+
+### Vulnerability Types Covered
+
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Authentication Bypass
+- Authorization Flaws
+- Server-Side Request Forgery (SSRF)
+
+### Security Persona
+
+Use the **Sentinel** persona for security-focused tasks:
+
+```
+Load personas/sentinel.md into your AI assistant
+```
+
+See [Security Testing Guide](docs/SECURITY_TESTING_GUIDE.md) for details.
 
 ---
 
@@ -162,6 +274,7 @@ Specialized AI personas for specific tasks:
 | **[Atlas](personas/atlas.md)** | Deep Research | HARVEST-R | Comprehensive research with sources |
 | **[Sage](personas/sage.md)** | Architecture | R-I-S-E + ToT | System design with trade-off analysis |
 | **[Scribe](personas/scribe.md)** | Documentation | HARVEST + Meta | Technical writing for any audience |
+| **[Sentinel](personas/sentinel.md)** | Security Testing | R-I-S-E + C-A-R-E | Vulnerability identification and validation |
 
 Each persona is a **self-contained prompt** you can paste into any AI. They integrate PlinyHub's frameworks, Confidence Protocol, and Meta-Prompting into focused specialists.
 
@@ -219,6 +332,7 @@ Domain modules inject standards into frameworks:
 | `python_data` | Python/ML/Data Science | Type hints, reproducibility, validation |
 | `general_reasoning` | Decisions, analysis | State assumptions, multiple perspectives |
 | `research_analysis` | Research, data | Cite sources, report limitations |
+| `security_testing` | Security assessments | OWASP methodology, CVSS scoring, proof-of-concept |
 
 ---
 
@@ -324,6 +438,12 @@ See [cli/CLI_SPECIFICATION.md](cli/CLI_SPECIFICATION.md) for complete reference.
 - [Meta-Framework](frameworks/meta_framework.md) — 3-layer architecture
 - [Verification Framework](frameworks/verification_framework.md) — 5-layer correctness
 - [CLI Specification](cli/CLI_SPECIFICATION.md) — All commands
+- **[Pattern Library](docs/PATTERN_LIBRARY.md)** — **NEW** Comprehensive pattern catalog
+- **[Pattern Extraction Guide](docs/PATTERN_EXTRACTION_GUIDE.md)** — **NEW** How to extract patterns
+- **[Pattern Application Guide](docs/PATTERN_APPLICATION_GUIDE.md)** — **NEW** How to apply patterns
+- **[Success Metrics](docs/SUCCESS_METRICS.md)** — **NEW** Examples of high-quality documentation
+- **[Execution Engine Guide](docs/EXECUTION_ENGINE_GUIDE.md)** — **NEW** Session management, checkpointing, parallel execution
+- **[Security Testing Guide](docs/SECURITY_TESTING_GUIDE.md)** — **NEW** Security assessment workflows
 
 ---
 

@@ -126,6 +126,21 @@ pliny cycle reset
 pliny check docs <markdown-file>
 ```
 
+### Pattern Library
+```bash
+# View pattern library
+pliny pattern list
+
+# View specific pattern
+pliny pattern show <pattern-name>
+
+# Extract patterns from reference framework
+pliny pattern extract <reference-framework-path>
+
+# Apply patterns to project
+pliny pattern apply <pattern-set> --target=<project-path>
+```
+
 ---
 
 ## 📁 File Locations

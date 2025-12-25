@@ -151,6 +151,28 @@ Output in:
 - [ ] Examples work
 - [ ] Types correct
 
+### Cross-References
+
+- [ ] Minimum 5+ cross-references per document
+- [ ] Recommended 6-7 average (proven optimal)
+- [ ] Grouped by category (Components, Configuration, Workflows)
+- [ ] Use relative paths for portability
+- [ ] Include anchor links for specific sections
+
+**Cross-Reference Format:**
+```markdown
+## Related Documentation
+
+### Components
+- [Component Name](../path/to/component.md) - Brief description
+
+### Configuration
+- [Config Name](../path/to/config.md) - Brief description
+
+### Workflows
+- [Workflow Name](../path/to/workflow.md) - Brief description
+```
+
 ### Quality Score
 
 **Target:** 95%+

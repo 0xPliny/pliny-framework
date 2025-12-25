@@ -1,0 +1,135 @@
+# Security Testing Domain Module
+# Imported from Shannon AI Pentester patterns
+
+domain: security_testing
+version: "1.0"
+description: "Security testing standards and patterns for web applications"
+
+# Vulnerability Categories
+vulnerability_types:
+  - injection:
+      subtypes: [sql, command, ldap, xpath]
+      severity: critical
+      description: "Injection flaws occur when untrusted data is sent to an interpreter as part of a command or query"
+      
+  - xss:
+      subtypes: [reflected, stored, dom]
+      severity: high
+      description: "Cross-Site Scripting (XSS) flaws occur when an application includes untrusted data in a new web page"
+      
+  - authentication:
+      subtypes: [bypass, weak_password, session_fixation, credential_stuffing]
+      severity: critical
+      description: "Authentication flaws allow attackers to compromise passwords, keys, or session tokens"
+      
+  - authorization:
+      subtypes: [idor, privilege_escalation, forced_browsing, insecure_direct_object_references]
+      severity: high
+      description: "Authorization flaws allow users to access resources or perform actions they shouldn't"
+      
+  - ssrf:
+      subtypes: [internal_access, cloud_metadata, port_scan]
+      severity: high
+      description: "Server-Side Request Forgery (SSRF) flaws occur when a web application fetches a remote resource without validating the user-supplied URL"
+
+# Testing Phases
+phases:
+  pre_reconnaissance:
+    description: "External scanning and initial code analysis"
+    tools: [nmap, subfinder, whatweb, codeql]
+    outputs: [port_scan, subdomains, tech_stack, code_analysis]
+    parallel: false
+    
+  reconnaissance:
+    description: "Attack surface mapping and entry point identification"
+    inputs: [pre_recon_results, source_code]
+    outputs: [attack_surface, entry_points, api_endpoints, authentication_points]
+    parallel: false
+    
+  vulnerability_analysis:
+    description: "Identify potential vulnerabilities in parallel"
+    parallel: true
+    agents: [injection, xss, auth, authz, ssrf]
+    outputs: [vulnerability_findings]
+    
+  exploitation:
+    description: "Validate vulnerabilities with proof-of-concept exploits"
+    parallel: true
+    agents: [injection_exploit, xss_exploit, auth_exploit, authz_exploit, ssrf_exploit]
+    inputs: [vulnerability_findings]
+    outputs: [exploitation_evidence]
+    
+  reporting:
+    description: "Generate executive and technical reports"
+    inputs: [all_findings, all_evidence]
+    outputs: [executive_report, technical_report]
+    parallel: false
+
+# Deliverable Templates
+deliverables:
+  vulnerability_finding:
+    required_fields:
+      - title
+      - severity
+      - description
+      - proof_of_concept
+      - remediation
+      - references
+    optional_fields:
+      - cvss_score
+      - affected_components
+      - exploitability
+      - impact
+      
+  exploitation_evidence:
+    required_fields:
+      - vulnerability_reference
+      - steps_to_reproduce
+      - screenshots
+      - impact_demonstration
+    optional_fields:
+      - exploit_code
+      - video_demo
+      - affected_data
+
+# Standards
+standards:
+  - "Follow OWASP Testing Guide methodology"
+  - "Provide reproducible proof-of-concept for all findings"
+  - "Rate severity using CVSS 3.1"
+  - "Include remediation guidance for all vulnerabilities"
+  - "Document all testing activities in audit log"
+  - "Obtain proper authorization before testing"
+  - "Follow responsible disclosure practices"
+
+# Testing Methodology
+methodology:
+  white_box:
+    description: "Source code analysis for vulnerability identification"
+    tools: [codeql, semgrep, bandit, sonarqube]
+    
+  black_box:
+    description: "Dynamic testing of running application"
+    tools: [browser_automation, burp_suite, zap, nikto]
+    
+  hybrid:
+    description: "Combination of white-box and black-box approaches"
+    recommended: true
+
+# Reporting Standards
+reporting:
+  executive_summary:
+    required_sections:
+      - overview
+      - risk_summary
+      - key_findings
+      - recommendations
+      
+  technical_report:
+    required_sections:
+      - methodology
+      - findings_detail
+      - proof_of_concepts
+      - remediation_guidance
+      - appendices
+

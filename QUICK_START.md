@@ -88,6 +88,26 @@ This loads standards that will guide your work.
 4. EVALUATE - Does it work? Iterate if needed
 ```
 
+### Execution Engine (NEW)
+
+For complex tasks, use the execution engine for session management and checkpointing:
+
+```bash
+# Start a session
+pliny session start "Create notification filter"
+
+# Execute with checkpointing
+pliny execute --framework rise --checkpoint phase
+
+# If something goes wrong, rollback
+pliny rollback "after-research"
+
+# Resume incomplete session
+pliny session resume <session-id>
+```
+
+See [Execution Engine Guide](docs/EXECUTION_ENGINE_GUIDE.md) for details.
+
 ---
 
 ## Step 5: Verify (1 minute)
@@ -211,6 +231,10 @@ A: It's the self-improvement system that captures learnings. Over time, the fram
 - **NEW:** Read [Persona Clarification](./core/persona_clarification.md) for domain-persona mapping
 - **NEW:** Read [Multi-Domain Orchestration](./core/multi_domain_orchestration.md) for cross-domain tasks
 - **NEW:** See [Edge Case Examples](./docs/examples/edge_case_examples.md) for tricky classification
+- **NEW:** Read [Pattern Library](./docs/PATTERN_LIBRARY.md) for reusable documentation patterns
+- **NEW:** See [Pattern Extraction Guide](./docs/PATTERN_EXTRACTION_GUIDE.md) to extract patterns from reference frameworks
+- **NEW:** Read [Execution Engine Guide](./docs/EXECUTION_ENGINE_GUIDE.md) for session management and checkpointing
+- **NEW:** See [Security Testing Guide](./docs/SECURITY_TESTING_GUIDE.md) for security assessment workflows
 
 ---
 

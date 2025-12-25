@@ -1,0 +1,69 @@
+# Example configuration file for Pliny Framework execution
+# Copy this file and modify it for your specific task needs
+
+# Task configuration
+task:
+  name: "Example Task"
+  description: "Brief description of what this task accomplishes"
+  domain: "web_development"  # Options: web_development, murata_mhc, python_data, general_reasoning, research_analysis, security_testing
+
+# Execution settings
+execution:
+  framework: "rise"  # Options: rise, care, harvest
+  parallel: true  # Enable parallel agent execution
+  max_retries: 3  # Maximum retry attempts for failed agents
+  checkpoint_frequency: "phase"  # Options: phase, agent, manual
+
+# Agent configuration
+agents:
+  - name: "research-web"
+    phase: "research"
+    parallel: true
+    tools: [browser, filesystem]
+    
+  - name: "research-code"
+    phase: "research"
+    parallel: true
+    tools: [filesystem, shell]
+    
+  - name: "identify-patterns"
+    phase: "identify"
+    parallel: false
+    prerequisites: [research-web, research-code]
+
+# MCP server configuration
+mcp_servers:
+  browser:
+    command: "npx"
+    args: ["@anthropic-ai/mcp-server-playwright", "--browser", "chromium", "--headless", "true"]
+    
+  filesystem:
+    command: "npx"
+    args: ["@anthropic-ai/mcp-server-filesystem", "--path", "/path/to/allowed/dir"]
+    
+  shell:
+    command: "npx"
+    args: ["@anthropic-ai/mcp-server-shell"]
+
+# Output settings
+output:
+  deliverables_dir: "./deliverables"
+  audit_logs_dir: "./audit-logs"
+  checkpoints_dir: "./checkpoints"
+
+# Error handling
+error_handling:
+  retry_strategies:
+    network:
+      max_retries: 3
+      backoff: exponential
+      initial_delay: 1000
+    tool:
+      max_retries: 2
+      backoff: linear
+      initial_delay: 2000
+    ai:
+      max_retries: 5
+      backoff: exponential
+      initial_delay: 5000
+
